@@ -29,23 +29,27 @@ public class GameController : MonoBehaviour
 
     void MainScreenButtonClicked(MainScreenButtonEnum button)
     {
-        _currentScreen = null;
+        GameObject go = _currentScreen;
 
         switch (button)
         {
             case MainScreenButtonEnum.Play:
                 {
+
                     _currentScreen = Instantiate(PlayScreen);
+                    Destroy(go);
                     break;
                 }
             case MainScreenButtonEnum.Highscores:
                 {
                     _currentScreen = Instantiate(HighscoreScreen);
+                    Destroy(go);
                     break;
                 }
             case MainScreenButtonEnum.Settings:
                 {
                     _currentScreen = Instantiate(SettingsScreen);
+                    Destroy(go);
                     break;
                 }
             case MainScreenButtonEnum.Quit:

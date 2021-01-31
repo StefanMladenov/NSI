@@ -25,7 +25,7 @@ public class MainScreenController : MonoBehaviour
 
     private void PlayButtonClicked()
     {
-        if(BtnClicked != null)
+        if (BtnClicked != null)
         {
             BtnClicked(MainScreenButtonEnum.Play);
         }
@@ -49,7 +49,6 @@ public class MainScreenController : MonoBehaviour
 
     private void QuitButtonClicked()
     {
-        Debug.Log("STEFAN");
         if (BtnClicked != null)
         {
             BtnClicked(MainScreenButtonEnum.Quit);
