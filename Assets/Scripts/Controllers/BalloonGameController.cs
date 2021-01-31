@@ -93,19 +93,42 @@ public class BalloonGameController : MonoBehaviour
         currentEquasion = listOfExpressions[index];
         index++;
         expressionText.text = currentEquasion.equation;
+        List<int> randomResults = new List<int>();
 
         for (int i = 0; i < 4; i++)
         {
-            int offset = Random.Range(1, 10) * Mathf.RoundToInt(Mathf.Sign(Random.Range(-1, 1)));
-            listOfBallons[i].result.text = (currentEquasion.result + offset).ToString();
+            int randomResult = generateRandomResult();
+            while (randomResults.Contains(randomResult))
+            {
+                randomResult = generateRandomResult();
+            }
+            randomResults.Add(randomResult);
         }
 
-        indexOfCorrect = Random.Range(0, 4);
+        for (int i = 0; i < 4; i++)
+        {
+            listOfBallons[i].result.text = randomResults[i].ToString();
+        }
+
+            indexOfCorrect = Random.Range(0, 4);
         listOfBallons[indexOfCorrect].result.text = currentEquasion.result.ToString();
     }
 
     public void TimeExpired()
     {
+        for (int i = 0; i < listOfBallons.Count; i++)
+        {
+            Destroy(listOfBallons[i]);
+        }
+
+        listOfBallons.Clear();
+        expressionText.text = "Time is up";
         Debug.Log("Isteklo vreme");
+    }
+
+    public int generateRandomResult()
+    {
+        int offset = Random.Range(1, 10) * Mathf.RoundToInt(Mathf.Sign(Random.Range(-1, 1)));
+        return currentEquasion.result + offset;
     }
 }
