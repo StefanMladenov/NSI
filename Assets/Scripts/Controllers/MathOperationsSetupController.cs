@@ -27,7 +27,15 @@ public class MathOperationsSetupController : MonoBehaviour
     private void PlayButtonClicked()
     {
         duration = Duration.value * 60;
-        max = Convert.ToInt32(CalculateUpToInputField.text);
+
+        if (CalculateUpToInputField.text != string.Empty) {
+            max = Convert.ToInt32(CalculateUpToInputField.text);
+        }
+        else
+        {
+            max = 20;
+        }
+        
         Instantiate(BallonController);
         Destroy(gameObject);
     }

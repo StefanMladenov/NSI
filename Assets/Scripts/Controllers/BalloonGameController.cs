@@ -1,5 +1,4 @@
 ﻿
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,12 +13,32 @@ public class BalloonGameController : MonoBehaviour
     private int index = 0;
     private int indexOfCorrect = 0;
     private RandomMath.EquationStruct currentEquasion;
+    public MathOperationsSetupController MathOperationSetupController;
+    public Button BackButton;
+    public Button QuitButton;
+    public Text goodAnswerText;
+    private int goodAnswers = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         listOfExpressions = RandomMath.GenerateRandomEquation(MathOperationsSetupController.max);
+        BackButton.onClick.AddListener(backButtonClicked);
+        QuitButton.onClick.AddListener(quitButtonClicked);
         InstantiateBallons();
         PickNewQuestion();
+        goodAnswerText.text = goodAnswers.ToString();
+    }
+
+    private void quitButtonClicked()
+    {
+        Application.Quit();
+    }
+
+    private void backButtonClicked()
+    {
+        Instantiate(MathOperationSetupController);
+        Destroy(gameObject);
     }
 
     // Update is called once per frame
@@ -52,6 +71,8 @@ public class BalloonGameController : MonoBehaviour
         if (listOfBallons.IndexOf(obj) == indexOfCorrect)
         {
             Debug.Log("Answer is correct");
+            goodAnswers++;
+            goodAnswerText.text = goodAnswers.ToString();
         }
         else
         {
